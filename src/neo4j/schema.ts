@@ -53,7 +53,7 @@ async function extractSchemaWithApoc(
     { timeout: 60 }
   );
 
-  if (!result.data || result.data.values.length === 0) {
+  if (!result.data?.values?.length) {
     throw new Error('Empty schema result from APOC');
   }
 
@@ -171,7 +171,7 @@ async function extractSchemaManually(
   const labelsResult = await client.query('CALL db.labels()', {}, { timeout: 30 });
   const labelNames: string[] = [];
 
-  if (labelsResult.data) {
+  if (labelsResult.data?.values) {
     for (const row of labelsResult.data.values) {
       if (row[0] && typeof row[0] === 'string') {
         labelNames.push(row[0]);
@@ -211,7 +211,7 @@ async function extractSchemaManually(
         { timeout: 30 }
       );
 
-      if (propsResult.data) {
+      if (propsResult.data?.values) {
         for (const row of propsResult.data.values) {
           if (row[0] && typeof row[0] === 'string') {
             label.properties.push({
@@ -237,7 +237,7 @@ async function extractSchemaManually(
         { timeout: 30 }
       );
 
-      if (relsResult.data) {
+      if (relsResult.data?.values) {
         for (const row of relsResult.data.values) {
           if (row[0] && typeof row[0] === 'string' && row[1] && typeof row[1] === 'string') {
             label.outgoingRelationships.push({
@@ -261,7 +261,7 @@ async function extractSchemaManually(
     { timeout: 30 }
   );
 
-  if (relTypesResult.data) {
+  if (relTypesResult.data?.values) {
     for (const row of relTypesResult.data.values) {
       if (row[0] && typeof row[0] === 'string') {
         relationshipTypes.push({
