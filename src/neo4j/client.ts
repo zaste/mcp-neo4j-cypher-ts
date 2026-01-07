@@ -235,7 +235,7 @@ export class Neo4jClient {
         { timeout: 10 }
       );
 
-      if (result.data && result.data.values.length > 0) {
+      if (result.data?.values?.length) {
         const row = result.data.values[0];
         if (row) {
           return {
